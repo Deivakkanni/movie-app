@@ -8,18 +8,20 @@ import Footer from "./components/Footer";
 import Favorites from "./pages/Favorites";
 export default function App() {
   return (
-    <>
+    <div className="app">
 
       <BrowserRouter>
         <Navbar />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/movie/:id" element={<MovieDetails />} />
-          <Route path="/favorites" element={<Favorites />} />
-        </Routes>
+        <main className="main-content">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/movie/:id" element={<MovieDetails />} />
+            <Route path="/favorites" element={<Favorites />} />
+          </Routes>
+        </main>
         <Footer />
       </BrowserRouter>
 
-    </>
+    </div>
   )
 }

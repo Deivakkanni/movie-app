@@ -16,6 +16,20 @@ a {
   color: inherit;
 }
 
+body {
+  margin: 0;
+}
+
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.main-content {
+  flex: 1;
+}
+
 .two-btn {
   display: flex;
   align-items: center;
