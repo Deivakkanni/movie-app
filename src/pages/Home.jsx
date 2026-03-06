@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { getPopularMovies, searchMovies } from "../services/Api";
-import MovieCard from "../components/MovieCard";
+import MovieCard from "../components/MovieCard"
 
 export default function Home() {
 
@@ -8,7 +8,8 @@ export default function Home() {
     const [searchTerm, setSearchTerm] = useState("");
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-
+    const [page, setPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(1);
     const fetchMovies = async () => {
 
         try {
@@ -42,16 +43,39 @@ export default function Home() {
         searchMovie();
     };
 
+    const nextPage = () => {
+        if (page < totalPages) {
+            setPage(page + 1);
+        }
+    };
+
+    const prevPage = () => {
+        if (page > 1) {
+            setPage(page - 1);
+        }
+    };
+
     useEffect(() => {
 
-        if (searchTerm.trim() === "") {
-            fetchMovies();
-            return;
-        }
+        const fetchMovies = async () => {
+            try {
+                const data = await getPopularMovies(page);
 
-        searchMovie();
+                setMovies(data.results);
+                setTotalPages(data.total_pages);
 
-    }, [searchTerm]);
+                setLoading(false);
+
+            } catch (error) {
+                console.error("Error fetching movies:", error);
+                setLoading(false);
+            }
+        };
+
+        fetchMovies();
+
+    }, [page]);
+
     if (loading) {
         return (
             <div className="text-center mt-5">
@@ -96,7 +120,19 @@ export default function Home() {
                 ))}
 
             </div>
+            <div className="pagination">
 
+                <button onClick={prevPage} disabled={page === 1}>
+                    Previous
+                </button>
+
+                <span> Page {page} of {totalPages} </span>
+
+                <button onClick={nextPage} disabled={page === totalPages}>
+                    Next
+                </button>
+
+            </div>
         </div>
     );
 }

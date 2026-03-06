@@ -5,6 +5,7 @@ import Navbar from "./components/Navbar"
 import MovieDetails from "./pages/MovieDetails";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Footer from "./components/Footer";
+import Favorites from "./pages/Favorites";
 export default function App() {
   return (
     <>
@@ -14,6 +15,7 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/movie/:id" element={<MovieDetails />} />
+          <Route path="/favorites" element={<Favorites />} />
         </Routes>
         <Footer />
       </BrowserRouter>

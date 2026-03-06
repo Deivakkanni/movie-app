@@ -3,13 +3,13 @@ import axios from "axios";
 const API_KEY = "41fb0c8c7d719397ae97c02e2bb202e7";
 const BASE_URL = "https://api.themoviedb.org/3";
 
-export const getPopularMovies = async () => {
-
+export const getPopularMovies = async (page = 1) => {
     const response = await axios.get(
-        `${BASE_URL}/movie/popular?api_key=${API_KEY}`
+        `${BASE_URL}/movie/popular?api_key=${API_KEY}&page=${page}`
     );
 
-    return response.data.results;
+
+    return response.data;
 };
 
 export const getMovieDetails = async (id) => {
